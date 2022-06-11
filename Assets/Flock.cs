@@ -56,6 +56,7 @@ public class Flock : MonoBehaviour
         }
         transform.Translate(0, 0, Time.deltaTime * speed);
     }
+    // aplica a regras na lista dos peixeis  o "manager"
     void ApplyRules()
     {
         GameObject[] gos;
