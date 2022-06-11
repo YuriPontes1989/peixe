@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 public class FlockManager : MonoBehaviour
 {
+    // declarando as variaveis de valor minimo de velocidade  maximo, distancia e velocidade de rotação
     public GameObject fishPrefab;
     public int numFish = 20;
     public GameObject[] allFish;
@@ -19,6 +20,7 @@ public class FlockManager : MonoBehaviour
     public float rotationSpeed;
     void Start()
     {
+        // é criado um array com todos os peixeis e através de um loof for, os peixeis são instanciados em uma posição aleatória dentro dos limites do nado, além de a posição do objetivo ser declarada como a posição  do gameobject
         allFish = new GameObject[numFish];
         for (int i = 0; i < numFish; i++)
         {
@@ -36,6 +38,7 @@ public class FlockManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //  se o número aleatório gerado pela função random, for menor que 10, a posição do objetivo é alterada para a sua posição mais uma posição aleatório dentro dos limites do nado
         goalPos = this.transform.position;
         if (Random.Range(0, 100) < 10)
             goalPos = this.transform.position + new Vector3(Random.Range(-swinLimits.x,

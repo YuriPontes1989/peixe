@@ -3,32 +3,42 @@ using System.Collections.Generic;
 using UnityEngine;
 public class Flock : MonoBehaviour
 {
+    // definindo as variaveis
     public FlockManager myManager;
     public float speed;
     bool turning = false;
     // Start is called before the first frame update
     void Start()
     {
+        //velocidade minima e maxima do mymanger onde tem os peixes aleatorizada 
         speed = Random.Range(myManager.minSpeed,
         myManager.maxSpeed);
     }
     void Update()
     {
+        // cria um bound "limite" no mymanager
         Bounds b = new Bounds(myManager.transform.position, myManager.swinLimits * 2);
+        // Cria o raycast
         RaycastHit hit = new RaycastHit();
+        // instancia  o vector3
         Vector3 direction = myManager.transform.position - transform.position;
+        //detecta a colisão se o peixe entrar dentro do limite
         if (!b.Contains(transform.position))
         {
             turning = true;
             direction = myManager.transform.position - transform.position;
         }
+        //gera um Raycast na frente doS peixeS 
         else if (Physics.Raycast(transform.position, this.transform.forward * 50, out hit))
         {
+            // a direção é  refletida  quando o o peixei detecta  a parede
             turning = true;
             direction = Vector3.Reflect(this.transform.forward, hit.normal);
         }
+        // se não detectar nada ele desvia 
         else
             turning = false;
+        //se estiver ativa ele rotaciona até uma das posições apresentadas nos ifs anteriores
         if (turning)
         {
             transform.rotation = Quaternion.Slerp(transform.rotation,
@@ -37,6 +47,7 @@ public class Flock : MonoBehaviour
         }
         else
         {
+            // velocidade aleatória 
             if (Random.Range(0, 100) < 10)
                 speed = Random.Range(myManager.minSpeed,
                 myManager.maxSpeed);
